@@ -5,6 +5,7 @@ import com.bridgelabz.employeepayrollapp.entity.EmployeeEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,17 +42,17 @@ public class EmployeeController {
 
     @GetMapping("/{id}")
     //Method to getAllEmployeeById
-    public Optional<EmployeeEntity> getEmployeeById(@PathVariable Long id){
+    public ResponseEntity<Optional<EmployeeEntity>> getEmployeeById(@PathVariable Long id){
         // Log the request to retrieve a specific employee.
         logger.info("Fetching employee with ID: {}", id);
         Optional<EmployeeEntity> employee = employeeServices.getEmployeeById(id);
 
-        if (employee.isPresent()) {
+        if(employee.isPresent()) {
             logger.info("Employee with ID {} found: {}", id, employee.get()); // Show the employee data.
-            return employee;
+            return ResponseEntity.ok(employee);
         } else {
             logger.warn("Employee with ID {} not found.", id); //Use warn because employee not found could be concerning
-            return employee;
+            return ResponseEntity.ok(employee);
         }
 
     }
