@@ -1,5 +1,6 @@
 package com.bridgelabz.employeepayrollapp.employeedto;
 
+//UC-02 Employee payroll application using DTO
 public class EmployeeDTO {
     private String name;
     private String department;

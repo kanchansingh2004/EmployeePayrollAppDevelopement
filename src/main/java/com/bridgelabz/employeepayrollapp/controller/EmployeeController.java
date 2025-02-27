@@ -12,13 +12,15 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/employees")
+@RequestMapping("/request")
 public class EmployeeController {
+    //Logger to define log statements
     public static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 
     @Autowired
     private EmployeeService employeeService;
 
+    //Using all required REST APIs
     @PostMapping
     public EmployeeDTO addEmployee(@RequestBody EmployeeDTO employeeDTO) {
         logger.info("Received request to save employee: {}", employeeDTO);
