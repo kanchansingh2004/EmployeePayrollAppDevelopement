@@ -2,8 +2,6 @@ package com.bridgelabz.employeepayrollapp.controller;
 
 import com.bridgelabz.employeepayrollapp.employeedto.EmployeeDTO;
 import com.bridgelabz.employeepayrollapp.employeeservices.EmployeeService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,12 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+//UC-02 Use Lombok Library for Logging
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+
 @RestController
 @RequestMapping("/request")
 public class EmployeeController {
-    //Logger to define log statements
-    public static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
-
     @Autowired
     private EmployeeService employeeService;
 
@@ -24,13 +23,13 @@ public class EmployeeController {
     //UC-03 Ability for the Services Layer to store the Employee Payroll Data
     @PostMapping
     public EmployeeDTO addEmployee(@RequestBody EmployeeDTO employeeDTO) {
-        logger.info("Received request to save employee: {}", employeeDTO);
+        log.info("Received request to save employee: {}", employeeDTO);
         return employeeService.addEmployee(employeeDTO);
     }
 
     @GetMapping
     public List<EmployeeDTO> getAllEmployees() {
-        logger.info("Fetching all employee records.");
+        log.info("Fetching all employee records.");
         return employeeService.getAllEmployees();
     }
 
