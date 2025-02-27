@@ -2,7 +2,8 @@ package com.bridgelabz.employeepayrollapp.repository;
 
 import com.bridgelabz.employeepayrollapp.entity.EmployeeEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-//Create an interface which extends the jpa Repository
+@Repository
 public interface UserRepository extends JpaRepository<EmployeeEntity, Long> {
 }

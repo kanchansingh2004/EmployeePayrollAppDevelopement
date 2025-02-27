@@ -1,27 +1,25 @@
 package com.bridgelabz.employeepayrollapp.entity;
-
+import com.bridgelabz.employeepayrollapp.employeedto.EmployeeDTO;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "employees") //Providing the table name
+@Table(name = "employees")
 public class EmployeeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
     private String department;
     private String salary;
 
     // Default Constructor
-    public EmployeeEntity() {
-    }
+    public EmployeeEntity() {}
 
-    // Parameterized Constructor
-    public EmployeeEntity(String name, String department, String salary) {
-        this.name = name;
-        this.department = department;
-        this.salary = salary;
+    // Constructor accepting EmployeeDTO
+    public EmployeeEntity( EmployeeDTO employeeDTO) {
+        this.name = employeeDTO.getName();
+        this.department = employeeDTO.getDepartment();
+        this.salary = employeeDTO.getSalary();
     }
 
     // Getters and Setters
