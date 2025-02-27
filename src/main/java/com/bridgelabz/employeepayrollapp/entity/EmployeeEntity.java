@@ -7,6 +7,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 
 //mark EmployeeEntity class as a database entity with table name employees
 @Entity
