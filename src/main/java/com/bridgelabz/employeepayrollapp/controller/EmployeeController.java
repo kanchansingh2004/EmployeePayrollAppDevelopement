@@ -28,7 +28,7 @@ public class EmployeeController {
     //UC-01 Add Validation to Name Field
     //Save the employee
     @PostMapping
-    public EmployeeDTO addEmployee(@RequestBody @Valid EmployeeDTO employeeDTO) {
+    public EmployeeDTO addEmployee(@Valid @RequestBody EmployeeDTO employeeDTO) {
         log.info("Received request to save employee: {}", employeeDTO);
         return employeeService.addEmployee(employeeDTO);
     }
@@ -49,7 +49,7 @@ public class EmployeeController {
 
     //Update the employee details by ID
     @PutMapping("/{id}")
-    public EmployeeDTO updateEmployee(@PathVariable Long id, @RequestBody EmployeeDTO employeeDTO) {
+    public EmployeeDTO updateEmployee(@PathVariable Long id, @RequestBody @Valid EmployeeDTO employeeDTO) {
         log.info("Successfully undated the information with Name: {}",employeeDTO.getName());
         return employeeService.updateEmployee(id, employeeDTO);
     }
