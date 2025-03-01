@@ -1,16 +1,16 @@
 package com.bridgelabz.employeepayrollapp;
-
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+//UC-02 Use Lombok Library for Logging
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+
 @SpringBootApplication
 public class EmployeepayrollappApplication {
-	public static final Logger logger = LoggerFactory.getLogger(EmployeepayrollappApplication.class);
 	public static void main(String[] args) {
-		logger.info("Starting Application.......");
+		log.info("Starting Application.......");
 		SpringApplication.run(EmployeepayrollappApplication.class, args);
-		logger.info("Application in process.......");
+		log.info("Application in process.......");
 	}
 }

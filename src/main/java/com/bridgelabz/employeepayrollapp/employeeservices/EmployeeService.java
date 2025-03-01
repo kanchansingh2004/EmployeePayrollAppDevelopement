@@ -41,7 +41,7 @@ public class EmployeeService {
     public Optional<EmployeeDTO> getEmployeeById(Long id) {
         log.info("Fetching employee with ID: {}", id);
         Optional<EmployeeEntity> employee = employeeRepository.findById(id);
-
+        log.info("Successfully fetched the information");
         return employee.map(emp -> new EmployeeDTO(emp.getName(), emp.getDepartment(), emp.getSalary()));
     }
 
