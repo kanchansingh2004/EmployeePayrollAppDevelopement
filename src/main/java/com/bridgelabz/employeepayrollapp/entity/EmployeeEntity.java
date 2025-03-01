@@ -13,6 +13,7 @@ import lombok.*;
 @Entity
 @Table(name = "employees")
 public class EmployeeEntity {
+    //Variables to store the details
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
