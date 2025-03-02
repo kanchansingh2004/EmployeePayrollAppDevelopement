@@ -2,12 +2,16 @@ package com.bridgelabz.employeepayrollapp.controller;
 
 import com.bridgelabz.employeepayrollapp.employeedto.EmployeeDTO;
 import com.bridgelabz.employeepayrollapp.employeeservices.EmployeeService;
+import com.bridgelabz.employeepayrollapp.entity.EmployeeEntity;
+import com.bridgelabz.employeepayrollapp.exceptionhandle.EmployeeNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,9 +43,11 @@ public class EmployeeController {
     @GetMapping("/{id}")
     public ResponseEntity<EmployeeDTO> getEmployeeById(@PathVariable Long id) {
         log.info("Fetching the employee details with id {}", id);
-        return employeeService.getEmployeeById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build()); // Handle case where employee doesn't exist
+        EmployeeDTO employeeDTO = employeeService.getEmployeeById(id).orElseThrow(
+                () -> new EmployeeNotFoundException("Employee with ID "+ id + " Not found!!")
+        );
+
+        return new ResponseEntity<>(employeeDTO, HttpStatus.OK);
     }
 
     // Update employee details by ID
@@ -54,9 +60,9 @@ public class EmployeeController {
 
     // Delete employee using ID
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
+    public ResponseEntity<String> deleteEmployee(@PathVariable Long id) {
         log.info("Deleting the employee with id {}", id);
-        boolean isDeleted = employeeService.deleteEmployee(id);
-        return isDeleted ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+        employeeService.deleteEmployee(id);
+        return new ResponseEntity<>("Employee successfully deleted!", HttpStatus.OK);
     }
 }
