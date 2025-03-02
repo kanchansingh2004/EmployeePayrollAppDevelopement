@@ -2,6 +2,7 @@ package com.bridgelabz.employeepayrollapp.employeeservices;
 
 import com.bridgelabz.employeepayrollapp.employeedto.EmployeeDTO;
 import com.bridgelabz.employeepayrollapp.entity.EmployeeEntity;
+import com.bridgelabz.employeepayrollapp.exceptionhandle.EmployeeNotFoundException;
 import com.bridgelabz.employeepayrollapp.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,11 @@ public class EmployeeService {
     // Get Employee By ID
     public Optional<EmployeeDTO> getEmployeeById(Long id) {
         log.info("Fetching employee with ID: {}", id);
+        Optional<EmployeeEntity> employee = employeeRepository.findById(id);
+        if(employee.isEmpty()){
+            log.warn("Employee with ID {} not found",id);
+            throw new EmployeeNotFoundException("Employee with ID " + id + " Not found!!");
+        }
         return employeeRepository.findById(id)
                 .map(emp -> modelMapper.map(emp, EmployeeDTO.class)); // Mapping entity to DTO
     }
@@ -65,7 +71,7 @@ public class EmployeeService {
     public boolean deleteEmployee(Long id) {
         if (!employeeRepository.existsById(id)) {
             log.warn("Employee with ID {} not found!", id);
-            return false; // Return false if the employee doesn't exist
+            throw new EmployeeNotFoundException("Employee with ID " + id + " Not exists");
         }
 
         log.info("Deleting employee with ID: {}", id);
