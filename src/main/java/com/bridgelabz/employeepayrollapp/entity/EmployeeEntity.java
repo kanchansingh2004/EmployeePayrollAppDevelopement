@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 
 //UC-01 Lombok Library to auto generate getters and setters for the DTO
 import lombok.*;
+
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,6 +23,7 @@ public class EmployeeEntity {
     private String name;
     private String department;
     private String salary;
-
-
+    private String gender;
+    private LocalDate startDate;
+    private String profile_pic;
 }

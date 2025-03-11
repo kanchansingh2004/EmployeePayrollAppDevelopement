@@ -32,11 +32,16 @@ public class EmployeeService {
     // UC-03 Ability for the Services Layer to store the Employee Payroll Data
     // Add Employee
     public ResponseEntity<EmployeeDTO> saveEmployee(EmployeeDTO employeeDTO) {
+        System.out.println("Controller calling");
         if (employeeDTO == null) {
             log.warn("Invalid Employee data received!");
             return ResponseEntity.badRequest().build(); // Handle invalid input gracefully
         }
 
+        Optional<EmployeeEntity> emp = employeeRepository.findById(Long.valueOf(employeeDTO.getId()));
+        if(emp.isPresent()){
+            log.warn("Already present");
+        }
         log.info("Adding new employee: {}", employeeDTO);
         EmployeeEntity employeeEntity = modelMapper.map(employeeDTO, EmployeeEntity.class);
         EmployeeEntity savedEntity = employeeRepository.save(employeeEntity);
@@ -85,6 +90,9 @@ public class EmployeeService {
             emp.setName(employeeDTO.getName());
             emp.setDepartment(employeeDTO.getDepartment());
             emp.setSalary(employeeDTO.getSalary());
+            emp.setGender(employeeDTO.getGender());
+            emp.setStartDate(employeeDTO.getStartDate());
+            emp.setProfile_pic(employeeDTO.getProfile_pic());
             EmployeeEntity updatedEntity = employeeRepository.save(emp);
             log.info("Employee details updated for ID: {}", id);
             return modelMapper.map(updatedEntity, EmployeeDTO.class); // Mapping entity to DTO

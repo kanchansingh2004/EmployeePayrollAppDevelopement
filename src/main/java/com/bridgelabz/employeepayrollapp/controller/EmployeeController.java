@@ -2,7 +2,6 @@ package com.bridgelabz.employeepayrollapp.controller;
 
 import com.bridgelabz.employeepayrollapp.employeedto.EmployeeDTO;
 import com.bridgelabz.employeepayrollapp.employeeservices.EmployeeService;
-import com.bridgelabz.employeepayrollapp.entity.EmployeeEntity;
 import com.bridgelabz.employeepayrollapp.exceptionhandle.EmployeeNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,10 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 import lombok.extern.slf4j.Slf4j;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @Slf4j
 @RestController
 @RequestMapping("/request") // Base URL mapping for employee-related requests
